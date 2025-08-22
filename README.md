@@ -1,6 +1,36 @@
 # UART-Protocol-Implementation
 A verilog implementation of UART Communication protocol
 
+
+## Project Structure
+```
+uart_project/
+├── rtl/
+│   ├── uart_tx.v               # UART Transmitter (FSM-based)
+│   ├── uart_rx.v               # UART Receiver (FSM-based)
+│   ├── baud_gen.v              # Baud rate generator (tick for bit sampling)
+│   └── uart_top.v              # Wrapper to connect Rx, Tx, and Baud
+│
+├── sim/
+│   ├── uart_tb.v               # Full testbench for simulation
+│   └── waveforms   # Optional: loopback test
+│
+├── definitions.vh              # defining Macros
+│
+└── README.md                   # Design explanation
+```
+
+## ✅ Features 
+
+- **Parametrized Baud Generator**
+- **Tx FSM**: start bit → 8 data bits → stop bit
+
+- **Rx FSM**: sync start → sample → shift into byte
+
+- **Loopback test** (Tx → Rx connection)
+
+- **Testbench** to send/receive characters
+
 ## UART Basics
 + UART, or `Universal Asynchronous Receiver-Transmitter`, is a hardware communication protocol that uses asynchronous serial communication with configurable speed. 
           
@@ -74,36 +104,3 @@ The receiving UART converts the serial data back into parallel and transfers it 
 </p>
 
 
-## Project Structure
-```
-uart_project/
-├── rtl/
-│   ├── uart_tx.v               # UART Transmitter (FSM-based)
-│   ├── uart_rx.v               # UART Receiver (FSM-based)
-│   ├── baud_gen.v              # Baud rate generator (tick for bit sampling)
-│   └── uart_top.v              # Wrapper to connect Rx, Tx, and Baud
-│
-├── tb/
-│   ├── uart_tb.v               # Full testbench for simulation
-│   └── uart_tx_rx_loopback.v   # Optional: loopback test
-│
-├── sim/
-│   ├── uart_test.vcd           # VCD waveform output
-│   └── Makefile / run.sh       # Compilation + simulation script
-│
-├── definitions.vh              # defining Macros
-│
-└── README.md                   # Design explanation
-```
-
-## ✅ Features 
-
-- Parametrized Baud Generator
-
-- Tx FSM: start bit → 8 data bits → stop bit
-
-- Rx FSM: sync start → sample → shift into byte
-
-- Loopback test (Tx → Rx connection)
-
-- Testbench to send/receive characters
